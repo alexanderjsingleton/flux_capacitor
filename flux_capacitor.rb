@@ -1,3 +1,4 @@
+# http://ruby-doc.org/core-2.2.3/Time.html
 # https://www.ruby-forum.com/topic/125709
 # https://www.ruby-forum.com/topic/104359
 # http://apidock.com/ruby/String/insert
