@@ -12,7 +12,7 @@ Write a function or method that accepts two mandatory arguments and returns a re
 * The second argument is the number of minutes, as an integer value
 * The return value of the function should be a string of the same format as the first
 argument, which is a result of adding the minutes to the time.
-  * For example, `add_minutes('9:13 AM', 10) would return `9:23 AM`
+  * For example, `add_minutes('9:13 AM', 10)` would return `9:23 AM`
 
 ## Additional Notes:
 *  We just want to see how you code, so this exercise is not meant to be too hard or take too long.
