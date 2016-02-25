@@ -2,6 +2,7 @@
 # https://www.ruby-forum.com/topic/125709
 # https://www.ruby-forum.com/topic/104359
 # http://apidock.com/ruby/String/insert
+# http://rubular.com/
 
 # require 'time'
 
@@ -18,3 +19,8 @@ def flux_capacitor(time,mins)
 end
 
 puts flux_capacitor("9:13 AM",10)
+
+puts flux_capacitor("9:13 PM",10)
+
+puts flux_capacitor("10:13 PM",10)
+
