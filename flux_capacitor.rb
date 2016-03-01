@@ -35,7 +35,7 @@ def flux_capacitor(time,mins)
   return "%d:%02d %s" % [adjusted_military_clock_hours, adjusted_military_clock_minutes, meridian]
 end 
 
-# CODE REVIEW
+# [CODE REVIEW](http://codereview.stackexchange.com/questions/121469/adding-minutes-to-a-time-value-in-ruby/121589#121589)
 
 # The edge cases (carry values of hours/meridian) is the core of this algorithm, IMO.
 
