@@ -19,7 +19,7 @@
 # FINAL REFACTOR
 
 def flux_capacitor(time,mins)
-  time_match = time.match(/^(\d?\d):(\d\d) (AM|PM)$/)
+  time_match = time.match(/^(\d?\d):(\d\d)/)
   meridian = time.scan(/(A|M|P)/).join('')
   strhours, strminutes, meridian = time_match.captures
   if time_match
