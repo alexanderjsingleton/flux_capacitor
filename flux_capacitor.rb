@@ -21,7 +21,6 @@
 def flux_capacitor(time,mins)
   time_match = time.match(/^(\d?\d):(\d\d)/)
   meridian = time.scan(/(AM|PM)/).join('')
-  
   if time_match
     strhours, strminutes, meridian = time_match.captures
     military_clock = (strhours.to_i * 60 + strminutes.to_i) + mins
