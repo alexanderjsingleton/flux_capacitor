@@ -29,7 +29,7 @@ def flux_capacitor(time,mins)
     if adjusted_military_clock_hours > 12
       meridian = "PM"
       adjusted_military_clock_hours -= 12
-      else false
+      else meridian = "AM"
     end
     return "%d:%02d %s" % [adjusted_military_clock_hours, adjusted_military_clock_minutes, meridian]
   else
