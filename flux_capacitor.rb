@@ -19,22 +19,20 @@
 # FINAL REFACTOR
 
 def flux_capacitor(time,mins)
-  time_match = time.match(/^(\d?\d):(\d\d)/)
-  meridian = time.scan(/(AM|PM)/).join('')
+  time_match = time.match(/^(\d?\d):(\d\d) (AM|PM)$/)
+  meridian = time.scan(/(A|M|P)/).join('')
+  strhours, strminutes, meridian = time_match.captures
   if time_match
-    strhours, strminutes, meridian = time_match.captures
     military_clock = (strhours.to_i * 60 + strminutes.to_i) + mins
     adjusted_military_clock_hours = military_clock / 60
     adjusted_military_clock_minutes = military_clock - (60 * adjusted_military_clock_hours)
     if adjusted_military_clock_hours > 12
       meridian = "PM"
       adjusted_military_clock_hours -= 12
-      else meridian = "AM"
+      else false   
     end
-    return "%d:%02d %s" % [adjusted_military_clock_hours, adjusted_military_clock_minutes, meridian]
-  else
-    raise(ArgumentError, "Invalid format, expected [H]H:MM {AM|PM}, got #{time}")
   end
+  return "%d:%02d %s" % [adjusted_military_clock_hours, adjusted_military_clock_minutes, meridian]
 end 
 
 # [CODE REVIEW](http://codereview.stackexchange.com/questions/121469/adding-minutes-to-a-time-value-in-ruby/121589#121589)
