@@ -21,8 +21,9 @@
 def flux_capacitor(time,mins)
   time_match = time.match(/^(\d?\d):(\d\d)/)
   meridian = time.scan(/(AM|PM)/).join('')
-  strhours, strminutes, meridian = time_match.captures
+  
   if time_match
+    strhours, strminutes, meridian = time_match.captures
     military_clock = (strhours.to_i * 60 + strminutes.to_i) + mins
     adjusted_military_clock_hours = military_clock / 60
     adjusted_military_clock_minutes = military_clock - (60 * adjusted_military_clock_hours)
@@ -32,6 +33,8 @@ def flux_capacitor(time,mins)
       else false
     end
     return "%d:%02d %s" % [adjusted_military_clock_hours, adjusted_military_clock_minutes, meridian]
+  else
+    raise(ArgumentError, "Invalid format, expected [H]H:MM {AM|PM}, got #{time}")
   end
 end 
 
@@ -61,9 +64,9 @@ end
 #   end
 # end
 
-# puts flux_capacitor("9:13 AM",10)
-# puts flux_capacitor("9:13 PM",10)
-# p flux_capacitor("10:13 PM",10).class
+puts flux_capacitor("9:13 AM",10)
+puts flux_capacitor("9:13 PM",10)
+p flux_capacitor("10:13 PM",10).class
 
 # # Edge-case
 puts flux_capacitor("11:59 AM", 62)
