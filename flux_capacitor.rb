@@ -18,25 +18,50 @@
 
 # FINAL REFACTOR
 
-def flux_capacitor(time,mins)
-  time_match = time.match(/^(\d?\d):(\d\d) (AM|PM)$/)
-  meridian = time.scan(/(A|M|P)/).join('')
-  strhours, strminutes, meridian = time_match.captures
-  if time_match
-    military_clock = (strhours.to_i * 60 + strminutes.to_i) + mins
-    adjusted_military_clock_hours = military_clock / 60
-    adjusted_military_clock_minutes = military_clock - (60 * adjusted_military_clock_hours)
-    if adjusted_military_clock_hours > 12
-      meridian = "PM"
-      adjusted_military_clock_hours -= 12
-      else false   
+# def flux_capacitor(time,mins)
+#   time_match = time.match(/^(\d?\d):(\d\d) (AM|PM)$/)
+#   meridian = time.scan(/(A|M|P)/).join('')
+#   strhours, strminutes, meridian = time_match.captures
+#   if time_match
+#     military_clock = (strhours.to_i * 60 + strminutes.to_i) + mins
+#     adjusted_military_clock_hours = military_clock / 60
+#     adjusted_military_clock_minutes = military_clock - (60 * adjusted_military_clock_hours)
+#     puts adjusted_military_clock_hours
+#     if adjusted_military_clock_hours > 12
+#       meridian = "PM"
+#       adjusted_military_clock_hours -= 12
+#       else  
+#     end
+#   end
+#   return "%d:%02d %s" % [adjusted_military_clock_hours, adjusted_military_clock_minutes, meridian]
+# end 
+
+# Best refactor via [CODE REVIEW](http://codereview.stackexchange.com/questions/121469/adding-minutes-to-a-time-value-in-ruby/121589#121589)
+
+def flux_capacitor(time, mins)
+    #check if time in valid format
+    time_match = time.strip.match /^(12|11|10|0?\d):([012345]\d)\s+(AM|PM)/
+
+    #throw error on invalid time
+    raise(ArgumentError, "Invalid time: #{time.strip}") if not time_match
+
+    #calculate new time
+    strhours, strminutes, meridian = time_match.captures
+    hours = (meridian == "AM" ? strhours.to_i : strhours.to_i + 12)
+    total_minutes = hours * 60 + strminutes.to_i + mins
+    total_minutes = total_minutes % (24*60) # we only want the minutes that fit within a day
+    adjusted_hours, adjusted_minutes = total_minutes.divmod(60)
+    if adjusted_hours > 12
+        adjusted_hours -= 12
+        meridian = "PM"
+    else
+        meridian = "AM"
     end
-  end
-  return "%d:%02d %s" % [adjusted_military_clock_hours, adjusted_military_clock_minutes, meridian]
-end 
 
-# [CODE REVIEW](http://codereview.stackexchange.com/questions/121469/adding-minutes-to-a-time-value-in-ruby/121589#121589)
+    "%d:%02d %s" % [adjusted_hours, adjusted_minutes, meridian]
+end
 
+# Runner-up
 # The edge cases (carry values of hours/meridian) is the core of this algorithm, IMO.
 
 # time.scan(/\d/): That's too general, better use a regexp that mimics exactly the input you should have.
@@ -63,10 +88,11 @@ end
 
 puts flux_capacitor("9:13 AM",10)
 puts flux_capacitor("9:13 PM",10)
-p flux_capacitor("10:13 PM",10).class
+p flux_capacitor("10:13 AM",10).class
 
-# # Edge-case
+# # # Edge-case
 puts flux_capacitor("11:59 AM", 62)
+puts flux_capacitor("9:59 PM", 62)
 # flux_capacitor("9:xy AM",10) 
 
 # DOX
